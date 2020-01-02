@@ -59,7 +59,7 @@ class ExampleScreen extends React.Component {
             <Button
               style={ApplicationStyles.button}
               onPress={() => this._fetchUser()}
-              title="Refresh"
+              title="Refresh now!"
             />
           </View>
         )}

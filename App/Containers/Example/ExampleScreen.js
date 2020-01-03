@@ -7,6 +7,9 @@ import { liveInEurope } from 'App/Stores/Example/Selectors'
 import Style from './ExampleScreenStyle'
 import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
 import NavigationService from 'App/Services/NavigationService'
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import IconFont from '../../lib/IconFont';
+
 /**
  * This is an example of a container component.
  *
@@ -41,6 +44,14 @@ class ExampleScreen extends React.Component {
             <View style={Style.logoContainer}>
               <Image style={Helpers.fullSize} source={Images.logo} resizeMode={'contain'} />
             </View>
+
+            <Icon name="shopping-basket" size={40} color="red" />
+            <IconFont
+                  name={ 'office' }
+                  size={ 14 }
+                  style={ { color: 'red' } }
+            />
+
             <Text style={Style.text}>To get started, edit App.js</Text>
             <Text style={Style.instructions}>{instructions}</Text>
             {this.props.userErrorMessage ? (

@@ -6,7 +6,7 @@ import ExampleActions from 'App/Stores/Example/Actions'
 import { liveInEurope } from 'App/Stores/Example/Selectors'
 import Style from './ExampleScreenStyle'
 import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
-
+import NavigationService from 'App/Services/NavigationService'
 /**
  * This is an example of a container component.
  *
@@ -58,8 +58,8 @@ class ExampleScreen extends React.Component {
             )}
             <Button
               style={ApplicationStyles.button}
-              onPress={() => this._fetchUser()}
-              title="Refresh now!"
+              onPress={() => this._fetchUser2()}
+              title="Refresh"
             />
           </View>
         )}
@@ -69,6 +69,11 @@ class ExampleScreen extends React.Component {
 
   _fetchUser() {
     this.props.fetchUser()
+  }
+  _fetchUser2() {
+    this.props.fetchUser();
+    console.log('NavigationService',NavigationService);
+    NavigationService.navigate('SplashScreen');
   }
 }
 

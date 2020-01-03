@@ -22,22 +22,23 @@ const persistConfig = {
   blacklist: [
     // 'auth',
   ],
+  whitelist: [
+    // 'auth',
+  ],
 }
 
 export default (rootReducer, rootSaga) => {
   const middleware = []
-  const enhancers = []
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // and REDUX_DEVTOOLS
 
   // Connect the sagas to the redux store
   const sagaMiddleware = createSagaMiddleware()
   middleware.push(sagaMiddleware)
 
-  enhancers.push(applyMiddleware(...middleware))
-
   // Redux persist
   const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-  const store = createStore(persistedReducer, compose(...enhancers))
+  const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(...middleware)))
   const persistor = persistStore(store)
 
   // Kick off the root saga

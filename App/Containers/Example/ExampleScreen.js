@@ -69,7 +69,7 @@ class ExampleScreen extends React.Component {
             )}
             <Button
               style={ApplicationStyles.button}
-              onPress={() => this._fetchUser2()}
+              onPress={() => this.onHomeScreen()}
               title="Refresh"
             />
           </View>
@@ -81,10 +81,10 @@ class ExampleScreen extends React.Component {
   _fetchUser() {
     this.props.fetchUser()
   }
-  _fetchUser2() {
+
+  onHomeScreen() {
     this.props.fetchUser();
-    console.log('NavigationService',NavigationService);
-    NavigationService.navigate('SplashScreen');
+    NavigationService.navigate('HomeScreen');
   }
 }
 

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Colors } from 'App/Theme'
+import {medium, normal, small, tiny} from "./Metrics";
 
 export default StyleSheet.create({
   backgroundReset: {
@@ -168,5 +169,71 @@ export default StyleSheet.create({
   },
   textRight: {
     textAlign: 'right',
+  },
+
+  margin: {
+    margin: normal
+  },
+  bottomMargin: {
+    marginBottom: normal,
+  },
+  mediumBottomMargin: {
+    marginBottom: medium,
+  },
+
+  tinyVerticalMargin: {
+    marginVertical: tiny,
+  },
+  smallVerticalMargin: {
+    marginVertical: small,
+  },
+  verticalMargin: {
+    marginVertical: normal,
+  },
+  mediumVerticalMargin: {
+    marginVertical: medium,
+  },
+
+  tinyHorizontalMargin: {
+    marginHorizontal: tiny,
+  },
+  smallHorizontalMargin: {
+    marginHorizontal: small,
+  },
+  horizontalMargin: {
+    marginHorizontal: normal,
+  },
+  mediumHorizontalMargin: {
+    marginHorizontal: medium,
+  },
+
+  padding: {
+    padding: normal
+  },
+
+  tinyHorizontalPadding: {
+    paddingHorizontal: tiny,
+  },
+  smallHorizontalPadding: {
+    paddingHorizontal: small,
+  },
+  horizontalPadding: {
+    paddingHorizontal: normal,
+  },
+  mediumHorizontalPadding: {
+    paddingHorizontal: medium,
+  },
+
+  tinyVerticalPadding: {
+    paddingVertical: tiny,
+  },
+  smallVerticalPadding: {
+    paddingVertical: small,
+  },
+  verticalPadding: {
+    paddingVertical: normal,
+  },
+  mediumVerticalPadding: {
+    paddingVertical: medium,
   },
 })

@@ -1,17 +1,18 @@
 import { StyleSheet } from 'react-native'
 import { Helpers, Metrics, Fonts, Colors } from 'App/Theme'
+import {tiny} from "App/Theme/Metrics";
 
 export default StyleSheet.create({
   error: {
     ...Fonts.normal,
     color: Colors.error,
-    marginBottom: Metrics.tiny,
+    marginBottom: tiny,
     textAlign: 'center',
   },
   instructions: {
     ...Fonts.normal,
     fontStyle: 'italic',
-    marginBottom: Metrics.tiny,
+    marginBottom: tiny,
     textAlign: 'center',
   },
   logoContainer: {
@@ -21,12 +22,12 @@ export default StyleSheet.create({
   },
   result: {
     ...Fonts.normal,
-    marginBottom: Metrics.tiny,
+    marginBottom: tiny,
     textAlign: 'center',
   },
   text: {
     ...Fonts.normal,
-    marginBottom: Metrics.tiny,
+    marginBottom: tiny,
     textAlign: 'center',
   },
 })

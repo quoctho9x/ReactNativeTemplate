@@ -1,26 +1,61 @@
-import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native'
-import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
-import NavigationService from 'App/Services/NavigationService'
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import IconFont from '../../lib/IconFont';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, View, Text } from 'react-native';
+import Util from "../../lib/Util";
+import { FONT_FAMILY, HEADER_TEXT_COLOR, HEADER_TEXT_SIZE, HEADER_TEXT_WEIGHT } from '../../Theme/Global';
+import Gradient from './Gradient';
 
-export default class Header extends React.Component {
-  render() {
-    return (
-      <View style={{backgroundColor:'yellow',padding:15}}>
-        <View>
-          {/*<Icon name="shopping-basket" size={40} color="red" />*/}
-          {/*<IconFont*/}
-          {/*    name={ 'office' }*/}
-          {/*    size={ 14 }*/}
-          {/*    style={ { color: 'red' } }*/}
-          {/*/>*/}
+export default class Header extends Component {
 
-          <Text >this is header</Text>
-        </View>
-      </View>
-    )
-  }
+    render () {
+        let centerViewStyle = styles.centerView
+        if(this.props.hiddingRight){
+            centerViewStyle = [styles.centerView, {flex: 8, flexDirection: 'row', justifyContent: 'flex-start'}]
+        }
+        return (
+            <Gradient
+
+                style={styles.container}>
+                <View style={styles.actionView}>
+                    {this.props.leftView}
+                </View>
+
+                <View style={centerViewStyle}>
+                    {this.props.centerView ? this.props.centerView : <Text numberOfLines={1} ellipsizeMode='tail' style={{
+                        fontWeight: HEADER_TEXT_WEIGHT,
+                        fontSize: HEADER_TEXT_SIZE,
+                        fontFamily: FONT_FAMILY,
+                        color: HEADER_TEXT_COLOR
+                    }}>{this.props.title}</Text>}
+
+                </View>
+
+                { this.props.hiddingRight ?
+                    null
+                    :
+                    <View style={[styles.actionView,{alignItems:'flex-end'}]}>
+                        {this.props.rightView}
+                    </View>
+                }
+            </Gradient>
+        )
+    }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        height: Util.isAndroid() ? 62 : (Util.isiPhoneX() ? 64 : 45),
+        flexDirection: 'row',
+        paddingLeft: (Platform.OS == 'ios' ? 12 : 16),
+        paddingRight: (Platform.OS == 'ios' ? 12 : 16),
+        backgroundColor: 'transparent',
+    },
+    centerView: {
+        flex: 6,
+        alignItems: 'center'
+    },
+    actionView: {
+        flex: 2
+    }
+
+});

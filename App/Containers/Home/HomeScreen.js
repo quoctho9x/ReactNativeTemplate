@@ -1,81 +1,93 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native'
-import { connect } from 'react-redux'
-import { PropTypes } from 'prop-types'
+import {
+    ScrollView,
+    View,
+    StyleSheet,
+    TouchableOpacity
+} from 'react-native'
+import {connect} from 'react-redux'
+import {PropTypes} from 'prop-types'
 import ExampleActions from 'App/Stores/Example/Actions'
-import { liveInEurope } from 'App/Stores/Example/Selectors'
-import Style from './HomeScreenStyle'
-import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
+import {liveInEurope} from 'App/Stores/Example/Selectors'
+import {Helpers, Images} from 'App/Theme'
 import NavigationService from 'App/Services/NavigationService'
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconFont from '../../lib/IconFont';
 import Header from "../../Components/common/Header";
+import GridView from "../../Components/GridView";
 
 class HomeScreen extends React.Component {
-  componentDidMount() {
-  }
 
-  render() {
-    return (
-      <View style={[
-        Helpers.fill,
-      ]}>
-        <Header/>
-        <View  style={[
-          Metrics.mediumHorizontalMargin,
-          Metrics.mediumVerticalMargin,
-        ]}>
-          <View style={Style.logoContainer}>
-            <Image style={Helpers.fullSize} source={Images.logo} resizeMode={'contain'} />
-          </View>
+    render() {
+        return (
+            <View style={[styles.container]}>
+                <Header title={'React native Template'}
+                        leftView={
+                            <TouchableOpacity onPress={this.props.navigation.openDrawer}>
+                                <IconFont
+                                    name={'menu'}
+                                    size={20}
+                                    style={{color: '#fff'}}
+                                />
+                            </TouchableOpacity>}
+                        rightView={
+                            <TouchableOpacity>
+                                <IconFont
+                                    name={'user'}
+                                    size={20}
+                                    style={{color: '#fff'}}
+                                />
+                            </TouchableOpacity>
+                        }
+                />
 
-          <Icon name="shopping-basket" size={40} color="red" />
-          <IconFont
-              name={ 'office' }
-              size={ 14 }
-              style={ { color: 'red' } }
-          />
-
-          <Text style={Style.text}>this is home screen</Text>
-          <Button
-              style={ApplicationStyles.button}
-              onPress={() => this._fetchUser2()}
-              title="Refresh"
-          />
-        </View>
-      </View>
-    )
-  }
-
-  _fetchUser2() {
-    console.log(' this.props.navigation', this.props.navigation);
-    this.props.navigation.openDrawer();
-    // this.props.fetchUser();
-    // console.log('NavigationService',NavigationService);
-    // NavigationService.navigate('SplashScreen');
-  }
+                <ScrollView style={[Helpers.padding]}>
+                    <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap',}}>
+                        <GridView width={'50%'}
+                                  backgroundColor={'red'}
+                                  source={Images.logo}
+                                  icon={'cog'}
+                                  title={'redux-saga'}
+                                  onPress={() => NavigationService.navigate('ExampleScreen')}/>
+                        <GridView width={'50%'}
+                                  backgroundColor={'blue'}
+                                  source={Images.logo}
+                                  icon={'menu'}
+                                  title={'React native Template 2'}
+                                  onPress={this.props.navigation.openDrawer}/>
+                    </View>
+                </ScrollView>
+            </View>
+        )
+    }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#F5FCFF',
+    },
+});
+
 HomeScreen.propTypes = {
-  user: PropTypes.object,
-  userIsLoading: PropTypes.bool,
-  userErrorMessage: PropTypes.string,
-  fetchUser: PropTypes.func,
-  liveInEurope: PropTypes.bool,
+    user: PropTypes.object,
+    userIsLoading: PropTypes.bool,
+    userErrorMessage: PropTypes.string,
+    fetchUser: PropTypes.func,
+    liveInEurope: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({
-  user: state.example.user,
-  userIsLoading: state.example.userIsLoading,
-  userErrorMessage: state.example.userErrorMessage,
-  liveInEurope: liveInEurope(state),
+    user: state.example.user,
+    userIsLoading: state.example.userIsLoading,
+    userErrorMessage: state.example.userErrorMessage,
+    liveInEurope: liveInEurope(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(ExampleActions.fetchUser()),
+    fetchUser: () => dispatch(ExampleActions.fetchUser()),
 })
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(HomeScreen)

@@ -5,10 +5,9 @@ import { PropTypes } from 'prop-types'
 import ExampleActions from 'App/Stores/Example/Actions'
 import { liveInEurope } from 'App/Stores/Example/Selectors'
 import Style from './ExampleScreenStyle'
-import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
+import { ApplicationStyles, Helpers, Images } from 'App/Theme'
 import NavigationService from 'App/Services/NavigationService'
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import IconFont from '../../lib/IconFont';
+import CommonHeader from "../../Components/common/CommonHeader";
 
 /**
  * This is an example of a container component.
@@ -27,53 +26,48 @@ class ExampleScreen extends React.Component {
     this._fetchUser()
   }
 
+  onBackPress = () => {
+    this.props.navigation.goBack();
+  };
+
   render() {
     return (
       <View
-        style={[
-          Helpers.fill,
-          Helpers.rowMain,
-          Metrics.mediumHorizontalMargin,
-          Metrics.mediumVerticalMargin,
-        ]}
+        style={[Helpers.fill]}
       >
-        {this.props.userIsLoading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : (
-          <View>
-            <View style={Style.logoContainer}>
-              <Image style={Helpers.fullSize} source={Images.logo} resizeMode={'contain'} />
-            </View>
+          <CommonHeader
+              title={"React native Template"}
+              onPress={this.onBackPress}
+          />
+          {this.props.userIsLoading
+              ? <ActivityIndicator size="large" color="#0000ff" />
+              : <View style={[ Helpers.verticalPadding, Helpers.horizontalPadding]}>
+                <View style={Style.logoContainer}>
+                  <Image style={Helpers.fullSize} source={Images.logo} resizeMode={'contain'} />
+                </View>
 
-            <Icon name="shopping-basket" size={40} color="red" />
-            <IconFont
-                  name={ 'office' }
-                  size={ 14 }
-                  style={ { color: 'red' } }
-            />
-
-            <Text style={Style.text}>To get started, edit App.js</Text>
-            <Text style={Style.instructions}>{instructions}</Text>
-            {this.props.userErrorMessage ? (
-              <Text style={Style.error}>{this.props.userErrorMessage}</Text>
-            ) : (
-              <View>
-                <Text style={Style.result}>
-                  {"I'm a fake user, my name is "}
-                  {this.props.user.name}
-                </Text>
-                <Text style={Style.result}>
-                  {this.props.liveInEurope ? 'I live in Europe !' : "I don't live in Europe."}
-                </Text>
+                <Text style={Style.text}>To get started, edit App.js</Text>
+                <Text style={Style.instructions}>{instructions}</Text>
+                {this.props.userErrorMessage ? (
+                    <Text style={Style.error}>{this.props.userErrorMessage}</Text>
+                ) : (
+                    <View>
+                      <Text style={Style.result}>
+                        {"I'm a fake user, my name is "}
+                        {this.props.user.name}
+                      </Text>
+                      <Text style={Style.result}>
+                        {this.props.liveInEurope ? 'I live in Europe !' : "I don't live in Europe."}
+                      </Text>
+                    </View>
+                )}
+                <Button
+                    style={ApplicationStyles.button}
+                    onPress={() => this._fetchUser()}
+                    title="Refresh"
+                />
               </View>
-            )}
-            <Button
-              style={ApplicationStyles.button}
-              onPress={() => this.onHomeScreen()}
-              title="Refresh"
-            />
-          </View>
-        )}
+          }
       </View>
     )
   }
@@ -82,10 +76,6 @@ class ExampleScreen extends React.Component {
     this.props.fetchUser()
   }
 
-  onHomeScreen() {
-    this.props.fetchUser();
-    NavigationService.navigate('HomeScreen');
-  }
 }
 
 ExampleScreen.propTypes = {

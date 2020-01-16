@@ -16,16 +16,10 @@ import storage from 'redux-persist/lib/storage'
 const persistConfig = {
   key: 'root',
   storage: storage,
-  /**
-   * Blacklist state that we do not need/want to persist
-   */
-  blacklist: [
-    // 'auth',
-  ],
   whitelist: [
-    // 'auth',
+    'auth',
   ],
-}
+};
 
 export default (rootReducer, rootSaga) => {
   const middleware = []

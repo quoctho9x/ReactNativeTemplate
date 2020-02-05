@@ -1,7 +1,7 @@
 import React from 'react'
 import {
     ScrollView,
-    View, Button, Image, TextInput,
+    View, Button, Image, TextInput, Text,
     StyleSheet,
     TouchableOpacity
 } from 'react-native'
@@ -18,6 +18,7 @@ import GridView from "../../Components/GridView";
 import ImagePicker from 'react-native-image-picker';
 import Share from 'react-native-share';
 import Modal from 'react-native-modalbox';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 
 const imagePickerOptions = {
     title: 'Select Avatar',
@@ -74,8 +75,67 @@ class HomeScreen extends React.Component {
             .catch((err) => { err && console.log(err); });
     }
 
+    renderTabHeader = () => {
+        return (
+            <View style={{flex: 1,}}>
+                <TouchableOpacity onPress={() => this.openImagePicker()} style={{marginTop:20, alignSelf:'center',}}>
+                    <Image
+                           source={this.state.avatarSource ? this.state.avatarSource : Images.logo}
+                           style={{width: 100, height: 100}}/>
+                </TouchableOpacity>
+
+                <ScrollableTabView
+                    style={{ marginTop: 200 }}
+                    initialPage={1}
+                    scrollWithoutAnimation={true}
+                    renderTabBar={()=><DefaultTabBar backgroundColor='red' activeTextColor='yellow' underlineStyle={{backgroundColor:'yellow'}}/>}
+                    // renderTabBar={() => <DefaultTabBar />}
+                >
+                    <Text tabLabel='Tab #1'>My</Text>
+                    <Text tabLabel='Tab #2'>favorite</Text>
+                    <Text tabLabel='Tab #3'>project</Text>
+                </ScrollableTabView>
+            </View>
+
+        )
+    };
+
+    renderHomeScreen = () => {
+        return (
+            <ScrollView style={[Helpers.padding]}>
+                <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap',}}>
+                    <GridView width={'50%'}
+                              backgroundColor={'red'}
+                              source={Images.logo}
+                              icon={'cog'}
+                              title={'redux-saga'}
+                              onPress={() => NavigationService.navigate('ExampleScreen')}/>
+                    <GridView width={'50%'}
+                              backgroundColor={'blue'}
+                              source={Images.logo}
+                              icon={'menu'}
+                              title={'React native Template 2'}
+                              onPress={this.props.navigation.openDrawer}/>
+                </View>
+
+                <Button onPress={this.onShare} title ='share'/>
+
+                <Button title="Modal with keyboard support" onPress={() => this.refs.modal7.open()} style={styles.btn}/>
+                <Modal ref={"modal7"}
+                       style={[styles.modal, styles.modal4]}
+                       coverScreen={true}
+                       position={"center"}>
+                    <View>
+                        <TextInput style={{height: 50, width: 200, backgroundColor: '#DDDDDD'}}/>
+                    </View>
+                </Modal>
+
+            </ScrollView>
+        )
+    }
+
     render() {
-        console.log('avatarSource: ', this.state.avatarSource);
+        // console.log('avatarSource: ', this.state.avatarSource);
         return (
             <View style={[styles.container]}>
                 <Header title={'React native Template'}
@@ -88,7 +148,7 @@ class HomeScreen extends React.Component {
                                 />
                             </TouchableOpacity>}
                         rightView={
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => NavigationService.navigate('ProfileScreen')}>
                                 <IconFont
                                     name={'user'}
                                     size={20}
@@ -97,42 +157,9 @@ class HomeScreen extends React.Component {
                             </TouchableOpacity>
                         }
                 />
+                { this.renderHomeScreen() }
 
-                <ScrollView style={[Helpers.padding]}>
-                    <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap',}}>
-                        <GridView width={'50%'}
-                                  backgroundColor={'red'}
-                                  source={Images.logo}
-                                  icon={'cog'}
-                                  title={'redux-saga'}
-                                  onPress={() => NavigationService.navigate('ExampleScreen')}/>
-                        <GridView width={'50%'}
-                                  backgroundColor={'blue'}
-                                  source={Images.logo}
-                                  icon={'menu'}
-                                  title={'React native Template 2'}
-                                  onPress={this.props.navigation.openDrawer}/>
-                    </View>
-
-                    <Button onPress={this.onShare} title ='share'/>
-
-                    <TouchableOpacity onPress={() => this.openImagePicker()} style={{marginTop:20, alignSelf:'center',}}>
-                        <Image
-                               source={this.state.avatarSource ? this.state.avatarSource : Images.logo}
-                               style={{width: 100, height: 100}}/>
-                    </TouchableOpacity>
-
-                    <Button title="Modal with keyboard support" onPress={() => this.refs.modal7.open()} style={styles.btn}/>
-                    <Modal ref={"modal7"}
-                           style={[styles.modal, styles.modal4]}
-                           coverScreen={true}
-                           position={"center"}>
-                        <View>
-                            <TextInput style={{height: 50, width: 200, backgroundColor: '#DDDDDD'}}/>
-                        </View>
-                    </Modal>
-
-                </ScrollView>
+                {/*{ this.renderTabHeader() }*/}
             </View>
         )
     }
@@ -156,6 +183,57 @@ const styles = StyleSheet.create({
     modal4: {
         height: 300
     },
+
+
+    indicatorContainer: {
+        backgroundColor: 'transparent',
+        height: 40,
+        borderTopWidth: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+    },
+    tabIcon: {
+        opacity: 0.7,
+        width: 16,
+        height: 16,
+        resizeMode: 'contain',
+        marginRight: 5,
+    },
+    selectedTabIcon: {
+        width: 16,
+        height: 16,
+        resizeMode: 'contain',
+        marginRight: 5,
+    },
+    tabTxt: {
+        marginTop: 0,
+        opacity: 0.7,
+        // fontFamily: FONT_FAMILY,
+        fontSize: 13,
+        fontWeight: "500",
+        fontStyle: "normal",
+        color: "#ffffff",
+    },
+    selectedTabTxt: {
+        marginTop: 0,
+        // fontFamily: FONT_FAMILY,
+        fontSize: 13,
+        fontWeight: "500",
+        fontStyle: "normal",
+        color: "#ffffff"
+    },
+    tabItem: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+    selectedTabItem: {
+        borderBottomColor: '#fff',
+        borderBottomWidth: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+    }
 
 });
 

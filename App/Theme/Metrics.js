@@ -3,6 +3,7 @@
  */
 
 // Examples of metrics you can define:
+export const super_tiny = 3;
 export const tiny = 5;
 export const small = tiny * 2; // 10
 export const normal = tiny * 3; // 15

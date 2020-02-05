@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {ScrollView, Text, View, TouchableOpacity, Image} from 'react-native';
 import NavigationService from 'App/Services/NavigationService'
-import {Images, Helpers} from "../../Theme";
+import {Images, Helpers, Colors} from "../../Theme";
 import {small} from "../../Theme/Metrics";
 import IconFont from "../../lib/IconFont";
 
@@ -9,25 +9,25 @@ const listMenu = [
     {
         title: 'Redux-Saga',
         icon: 'cog',
-        iconColor: 'red',
+        iconColor: Colors.text,
         navigate: 'ExampleScreen'
     },
     {
         title: 'Google Map',
         icon: 'map',
-        iconColor: 'red',
+        iconColor: Colors.text,
         navigate: 'ExampleScreen'
     },
     {
         title: 'Login Facebook',
         icon: 'facebook2',
-        iconColor: 'red',
+        iconColor: Colors.text,
         navigate: 'ExampleScreen'
     },
     {
         title: 'title 2',
         icon: 'info',
-        iconColor: 'red',
+        iconColor: Colors.text,
         navigate: 'ExampleScreen'
     },
 ];
@@ -40,16 +40,18 @@ export default class SideMenu extends Component {
     renderListMenu = () => {
         return listMenu.map((item, index) =>
             <TouchableOpacity key={`${index}`} onPress={() => NavigationService.navigate(item.navigate)}
-                              style={[Helpers.horizontalPadding, Helpers.smallVerticalPadding, {
+                              style={[Helpers.smallHorizontalPadding, Helpers.smallVerticalPadding, {
                                   flexDirection: 'row',
-                                  alignItems: 'center'
+                                  alignItems: 'center',
+                                  borderBottomWidth: 1,
+                                  borderColor: Colors.border
                               }]}>
                 <IconFont
                     name={item.icon}
                     size={18}
                     style={{color: item.iconColor}}
                 />
-                <Text style={{paddingLeft: small, fontSize: 16,}}>
+                <Text style={{paddingLeft: small, fontSize: 18, color:Colors.text}}>
                     {item.title}
                 </Text>
             </TouchableOpacity>
@@ -60,13 +62,13 @@ export default class SideMenu extends Component {
         return (
             <View style={{flex: 1,}}>
                 <ScrollView>
-                    <TouchableOpacity style={[Helpers.padding, {alignItems: 'center', flexDirection: 'row', backgroundColor: '#439aab'}]}
-                                      onPress={() => NavigationService.navigate('SplashScreen')}>
+                    <TouchableOpacity style={[Helpers.padding, {alignItems: 'center', flexDirection: 'row', backgroundColor: Colors.skyblue}]}
+                                      onPress={() => NavigationService.navigate('ProfileScreen')}>
                         <Image source={Images.logo}
-                               style={{backgroundColor: 'red', borderRadius: 25, height: 50, width: 50}}/>
-                        <View style={[{paddingLeft: 15, justifyContent: 'center', backgroundColor: 'transparent'}]}>
-                            <Text>Section 1</Text>
-                            <Text>Section 1</Text>
+                               style={{ borderRadius: 25, height: 50, width: 50, borderWidth:1, borderColor:Colors.white}}/>
+                        <View style={[{paddingLeft: 10, justifyContent: 'center', backgroundColor: 'transparent'}]}>
+                            <Text style={{color: Colors.text}}>Quoc Tho</Text>
+                            <Text style={{color: Colors.text}}>Binh chanh, Tp.HCM</Text>
                         </View>
                     </TouchableOpacity>
                     {this.renderListMenu()}

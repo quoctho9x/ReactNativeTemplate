@@ -15,19 +15,8 @@ import IconFont from '../../lib/IconFont';
 import Header from "../../Components/common/Header";
 import GridView from "../../Components/GridView";
 
-import ImagePicker from 'react-native-image-picker';
 import Share from 'react-native-share';
 import Modal from 'react-native-modalbox';
-import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
-
-const imagePickerOptions = {
-    title: 'Select Avatar',
-    customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
-    storageOptions: {
-        skipBackup: true,
-        path: 'images',
-    },
-};
 
 const shareOptions = {
     title: 'Share App',
@@ -46,29 +35,6 @@ class HomeScreen extends React.Component {
         }
     }
 
-    openImagePicker = () => {
-        ImagePicker.showImagePicker(imagePickerOptions, (response) => {
-            console.log('Response = ', response);
-
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = {uri: response.uri};
-
-                // You can also display the image using data:
-                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-                this.setState({
-                    avatarSource: source,
-                });
-            }
-        });
-    }
-
     onShare = () =>{
         Share.open(shareOptions)
             .then((res) => { console.log(res) })
@@ -77,26 +43,7 @@ class HomeScreen extends React.Component {
 
     renderTabHeader = () => {
         return (
-            <View style={{flex: 1,}}>
-                <TouchableOpacity onPress={() => this.openImagePicker()} style={{marginTop:20, alignSelf:'center',}}>
-                    <Image
-                           source={this.state.avatarSource ? this.state.avatarSource : Images.logo}
-                           style={{width: 100, height: 100}}/>
-                </TouchableOpacity>
-
-                <ScrollableTabView
-                    style={{ marginTop: 200 }}
-                    initialPage={1}
-                    scrollWithoutAnimation={true}
-                    renderTabBar={()=><DefaultTabBar backgroundColor='red' activeTextColor='yellow' underlineStyle={{backgroundColor:'yellow'}}/>}
-                    // renderTabBar={() => <DefaultTabBar />}
-                >
-                    <Text tabLabel='Tab #1'>My</Text>
-                    <Text tabLabel='Tab #2'>favorite</Text>
-                    <Text tabLabel='Tab #3'>project</Text>
-                </ScrollableTabView>
-            </View>
-
+            null
         )
     };
 
@@ -113,9 +60,9 @@ class HomeScreen extends React.Component {
                     <GridView width={'50%'}
                               backgroundColor={'blue'}
                               source={Images.logo}
-                              icon={'menu'}
-                              title={'React native Template 2'}
-                              onPress={this.props.navigation.openDrawer}/>
+                              icon={'map'}
+                              title={'Google Map'}
+                              onPress={() => NavigationService.navigate('Map')}/>
                 </View>
 
                 <Button onPress={this.onShare} title ='share'/>
@@ -148,7 +95,7 @@ class HomeScreen extends React.Component {
                                 />
                             </TouchableOpacity>}
                         rightView={
-                            <TouchableOpacity onPress={() => NavigationService.navigate('ProfileScreen')}>
+                            <TouchableOpacity onPress={() => NavigationService.navigate('Profile')}>
                                 <IconFont
                                     name={'user'}
                                     size={20}

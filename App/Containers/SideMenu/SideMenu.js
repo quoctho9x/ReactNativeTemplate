@@ -16,7 +16,7 @@ const listMenu = [
         title: 'Google Map',
         icon: 'map',
         iconColor: Colors.text,
-        navigate: 'ExampleScreen'
+        navigate: 'Map'
     },
     {
         title: 'Login Facebook',
@@ -63,7 +63,7 @@ export default class SideMenu extends Component {
             <View style={{flex: 1,}}>
                 <ScrollView>
                     <TouchableOpacity style={[Helpers.padding, {alignItems: 'center', flexDirection: 'row', backgroundColor: Colors.skyblue}]}
-                                      onPress={() => NavigationService.navigate('ProfileScreen')}>
+                                      onPress={() => NavigationService.navigate('Profile')}>
                         <Image source={Images.logo}
                                style={{ borderRadius: 25, height: 50, width: 50, borderWidth:1, borderColor:Colors.white}}/>
                         <View style={[{paddingLeft: 10, justifyContent: 'center', backgroundColor: 'transparent'}]}>

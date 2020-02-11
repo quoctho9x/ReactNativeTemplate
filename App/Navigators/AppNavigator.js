@@ -15,6 +15,7 @@ import HomeScreen from 'App/Containers/Home/HomeScreen'
 import SideMenu from 'App/Containers/SideMenu/SideMenu'
 import ProfileScreen from 'App/Containers/Profile/ProfileScreen'
 import MapScreen from 'App/Containers/Map/MapScreen'
+import AuthenticationScreen from 'App/Containers/Authentication/AuthenticationScreen'
 
 
 const StackNavigator = createStackNavigator(
@@ -25,6 +26,7 @@ const StackNavigator = createStackNavigator(
         HomeScreen: HomeScreen,
         Profile: ProfileScreen,
         Map: MapScreen,
+        Authentication: AuthenticationScreen,
     },
     {
         initialRouteName: 'SplashScreen',// By default the application will show the splash screen

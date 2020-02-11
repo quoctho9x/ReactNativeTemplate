@@ -63,11 +63,17 @@ class HomeScreen extends React.Component {
                               icon={'map'}
                               title={'Google Map'}
                               onPress={() => NavigationService.navigate('Map')}/>
+                    <GridView width={'50%'}
+                              backgroundColor={'blue'}
+                              source={Images.logo}
+                              icon={'facebook2'}
+                              title={'Authentication'}
+                              onPress={() => NavigationService.navigate('Authentication')}/>
                 </View>
 
                 <Button onPress={this.onShare} title ='share'/>
 
-                <Button title="Modal with keyboard support" onPress={() => this.refs.modal7.open()} style={styles.btn}/>
+                {/*<Button title="Modal with keyboard support" onPress={() => this.refs.modal7.open()} style={styles.btn}/>*/}
                 <Modal ref={"modal7"}
                        style={[styles.modal, styles.modal4]}
                        coverScreen={true}

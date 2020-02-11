@@ -46,6 +46,10 @@ target 'ReactNativeTemplate' do
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
 
+  # Required by RNFirebase
+  pod 'Firebase/Core', '~> 6.16.0'
+  pod 'Firebase/Auth', '~> 6.16.0'
+
   use_native_modules!
 end
 target 'ReactNativeTemplate-tvOS' do

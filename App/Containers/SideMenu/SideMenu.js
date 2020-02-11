@@ -19,10 +19,10 @@ const listMenu = [
         navigate: 'Map'
     },
     {
-        title: 'Login Facebook',
+        title: 'Authentication',
         icon: 'facebook2',
         iconColor: Colors.text,
-        navigate: 'ExampleScreen'
+        navigate: 'Authentication'
     },
     {
         title: 'title 2',
@@ -64,7 +64,7 @@ export default class SideMenu extends Component {
                 <ScrollView>
                     <TouchableOpacity style={[Helpers.padding, {alignItems: 'center', flexDirection: 'row', backgroundColor: Colors.skyblue}]}
                                       onPress={() => NavigationService.navigate('Profile')}>
-                        <Image source={Images.logo}
+                        <Image source={Images.avatar}
                                style={{ borderRadius: 25, height: 50, width: 50, borderWidth:1, borderColor:Colors.white}}/>
                         <View style={[{paddingLeft: 10, justifyContent: 'center', backgroundColor: 'transparent'}]}>
                             <Text style={{color: Colors.text}}>Quoc Tho</Text>

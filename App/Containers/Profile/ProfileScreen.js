@@ -81,7 +81,7 @@ class ProfileScreen extends React.Component {
                     >
                         <TouchableOpacity onPress={() => this.openImagePicker()} style={style.avatar}>
                             <Image
-                                source={this.state.avatarSource ? this.state.avatarSource : Images.logo}
+                                source={this.state.avatarSource ? this.state.avatarSource : Images.avatar}
                                 style={style.image}/>
                         </TouchableOpacity>
                     </Animatable.View>
